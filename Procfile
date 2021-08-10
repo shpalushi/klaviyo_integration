@@ -1,0 +1,1 @@
+web: gunicorn klaviyo_integration.wsgi --log-file -
