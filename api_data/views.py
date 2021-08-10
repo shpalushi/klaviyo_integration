@@ -116,16 +116,16 @@ class KlaviyoData(View):
                 "$first_name": first_name,
                 "institution": institution,
                 "$last_name": last_name,
-                "pay_type": pay_type,
+                "whoispaying": pay_type,
                 "$phone_number": phone,
-                "way_of_contact": way_of_contact,
+                "how_can_we_contact_you_about_this_course": way_of_contact,
                 "experience": work_experience,
                 "$country": country,
                 "course_sku": course_sku,
-                "course_name": course_name,
-                "lead_type": lead_type,
+                "courseName": course_name,
+                "lead_status": lead_type,
                 "course_start_date": course_start_date,
-                "company_name": company_name
+                "Organization": company_name
             }
             put_request = requests.put(f'https://a.klaviyo.com/api/v1/person/{data_info_id}', params=put_params)
             if put_request.status_code == 200:
@@ -143,16 +143,16 @@ class KlaviyoData(View):
                 "$first_name": first_name,
                 "institution": institution,
                 "$last_name": last_name,
-                "pay_type": pay_type,
+                "whoispaying": pay_type,
                 "$phone_number": phone,
-                "way_of_contact": way_of_contact,
+                "how_can_we_contact_you_about_this_course": way_of_contact,
                 "experience": work_experience,
                 "$country": country,
                 "course_sku": course_sku,
-                "course_name": course_name,
-                "lead_type": lead_type,
+                "courseName": course_name,
+                "lead_status": lead_type,
                 "course_start_date": course_start_date,
-                "company_name": company_name
+                "Organization": company_name
             }
         }
 
