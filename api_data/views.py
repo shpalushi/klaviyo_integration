@@ -63,6 +63,35 @@ def get_course_data(course_sku):
     else:
         return ["Register", "Registered directly", "No date"]
 
+def get_course_list_id_by_name(course_name):
+    if course_name == 'Oxford AI in Finance and Open Banking Programme':
+        return 'WcKGQ9';
+    elif course_name == 'Oxford Cyber Security for Business Leaders':
+        return 'TZxxBB';
+    elif course_name == 'Oxford Fintech Programme':
+        return 'Xc6gPR';
+    elif course_name == 'Oxford Blockchain Strategy Programme':
+        return 'TwVVNu';
+    elif course_name == 'Oxford Platforms and Digital Disruption Programme':
+        return 'VKzR9b';
+    elif course_name == 'Oxford Digital Finance Executive Series':
+        return 'SfNK2f';
+    elif course_name == 'AI Leadership':
+        return 'RDERB6';
+    elif course_name == 'AI Startups & Innovation Programme':
+        return 'SviuU3';
+    elif course_name == 'Cambridge RegTech: AI for Financial Regulation, Risk, and Compliance Programme':
+        return 'TV2tsc';
+    elif course_name == 'Cambridge Startup Funding: Pre-seed to Exit Programme':
+        return 'TugwLF';
+    elif course_name == 'Data Strategy: Leverage AI for Business':
+        return 'UF9Pah';
+    elif course_name == 'Leading Health Tech Innovation':
+        return 'VKjeTG';
+    else:
+        return  -1;
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class KlaviyoData(View):
 
@@ -163,6 +192,42 @@ class KlaviyoData(View):
 
         # check the status of the response
         if http_request.text == '1':
+            return JsonResponse({"success": True}, status=200)
+        else:
+            return JsonResponse({"success": False}, status=400)
+
+@method_decorator(csrf_exempt, name="dispatch")
+class KlaviyoDataList(View):
+
+    def post(self, request):
+        # get api key from secrets file
+        dotenv_file = os.path.join(BASE_DIR, ".env")
+
+        if os.path.isfile(dotenv_file):
+            dotenv.load_dotenv(dotenv_file)
+        api_key = os.environ['API_KEY']
+        data = json.loads(request.body.decode("utf-8"))
+
+        ######This data needs to be sent#######
+        email = data.get("email")
+        course_name = data.get("course_title")
+        list_id = get_course_list_id_by_name(course_name)
+        phone = data.get('phone')
+        ######This data needs to be sent#######
+
+        url = f"https://a.klaviyo.com/api/v2/list/{list_id}/members"
+
+        querystring = {"api_key": api_key}
+
+        payload = {"profiles": [{"email": email}]}
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+
+        response = requests.request("POST", url, json=payload, headers=headers, params=querystring)
+
+        if '"id"' in response.text:
             return JsonResponse({"success": True}, status=200)
         else:
             return JsonResponse({"success": False}, status=400)
