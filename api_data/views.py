@@ -64,29 +64,29 @@ def get_course_data(course_sku):
         return ["Register", "Registered directly", "No date"]
 
 def get_course_list_id_by_name(course_name):
-    if course_name == 'Oxford AI in Finance and Open Banking Programme':
+    if 'Oxford AI in Finance and Open Banking Programme' in course_name:
         return 'WcKGQ9';
-    elif course_name == 'Oxford Cyber Security for Business Leaders':
+    elif 'Oxford Cyber Security for Business Leaders' in course_name:
         return 'TZxxBB';
-    elif course_name == 'Oxford Fintech Programme':
+    elif 'Oxford Fintech Programme' in course_name:
         return 'Xc6gPR';
-    elif course_name == 'Oxford Blockchain Strategy Programme':
+    elif 'Oxford Blockchain Strategy Programme' in course_name:
         return 'TwVVNu';
-    elif course_name == 'Oxford Platforms and Digital Disruption Programme':
+    elif 'Oxford Platforms and Digital Disruption Programme' in course_name:
         return 'VKzR9b';
-    elif course_name == 'Oxford Digital Finance Executive Series':
+    elif 'Oxford Digital Finance Executive Series' in course_name:
         return 'SfNK2f';
-    elif course_name == 'AI Leadership':
+    elif 'AI Leadership' in course_name:
         return 'RDERB6';
-    elif course_name == 'AI Startups & Innovation Programme':
+    elif 'AI Startups & Innovation Programme' in course_name:
         return 'SviuU3';
-    elif course_name == 'Cambridge RegTech: AI for Financial Regulation, Risk, and Compliance Programme':
+    elif 'Cambridge RegTech: AI for Financial Regulation, Risk, and Compliance Programme' in course_name:
         return 'TV2tsc';
-    elif course_name == 'Cambridge Startup Funding: Pre-seed to Exit Programme':
+    elif 'Cambridge Startup Funding: Pre-seed to Exit Programme' in course_name:
         return 'TugwLF';
-    elif course_name == 'Data Strategy: Leverage AI for Business':
+    elif 'Data Strategy: Leverage AI for Business' in course_name:
         return 'UF9Pah';
-    elif course_name == 'Leading Health Tech Innovation':
+    elif 'Leading Health Tech Innovation' in course_name:
         return 'VKjeTG';
     else:
         return  -1;
