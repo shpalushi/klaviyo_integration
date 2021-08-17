@@ -158,7 +158,37 @@ class KlaviyoData(View):
             }
             put_request = requests.put(f'https://a.klaviyo.com/api/v1/person/{data_info_id}', params=put_params)
             if put_request.status_code == 200:
-                return JsonResponse({"success": True}, status=200)
+                # get api key from secrets file
+                dotenv_file = os.path.join(BASE_DIR, ".env")
+
+                if os.path.isfile(dotenv_file):
+                    dotenv.load_dotenv(dotenv_file)
+                api_key = os.environ['API_KEY']
+                data = json.loads(request.body.decode("utf-8"))
+
+                ######This data needs to be sent#######
+                email = data.get("email")
+                course_name = data.get("course_title")
+                list_id = get_course_list_id_by_name(course_name)
+                phone = data.get('phone')
+                ######This data needs to be sent#######
+
+                url = f"https://a.klaviyo.com/api/v2/list/{list_id}/members"
+
+                querystring = {"api_key": api_key}
+
+                payload = {"profiles": [{"email": email}]}
+                headers = {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+
+                response = requests.request("POST", url, json=payload, headers=headers, params=querystring)
+
+                if '"id"' in response.text:
+                    return JsonResponse({"success": "Also included"}, status=200)
+                else:
+                    return JsonResponse({"success": False}, status=400)
 
         # prepare json body
         json_data_send = {
@@ -192,7 +222,37 @@ class KlaviyoData(View):
 
         # check the status of the response
         if http_request.text == '1':
-            return JsonResponse({"success": True}, status=200)
+            # get api key from secrets file
+            dotenv_file = os.path.join(BASE_DIR, ".env")
+
+            if os.path.isfile(dotenv_file):
+                dotenv.load_dotenv(dotenv_file)
+            api_key = os.environ['API_KEY']
+            data = json.loads(request.body.decode("utf-8"))
+
+            ######This data needs to be sent#######
+            email = data.get("email")
+            course_name = data.get("course_title")
+            list_id = get_course_list_id_by_name(course_name)
+            phone = data.get('phone')
+            ######This data needs to be sent#######
+
+            url = f"https://a.klaviyo.com/api/v2/list/{list_id}/members"
+
+            querystring = {"api_key": api_key}
+
+            payload = {"profiles": [{"email": email}]}
+            headers = {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+
+            response = requests.request("POST", url, json=payload, headers=headers, params=querystring)
+
+            if '"id"' in response.text:
+                return JsonResponse({"success": "Also included"}, status=200)
+            else:
+                return JsonResponse({"success": False}, status=400)
         else:
             return JsonResponse({"success": False}, status=400)
 
