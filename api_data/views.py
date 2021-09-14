@@ -118,6 +118,7 @@ class KlaviyoData(View):
         course_name = get_course_data(course_sku)[1]
         lead_type = get_course_data(course_sku)[0]
         course_start_date = get_course_data(course_sku)[2]
+        biller_email = data.get("biller_email")
 
         # end: get the user data from request
 
@@ -154,7 +155,8 @@ class KlaviyoData(View):
                 "courseName": course_name,
                 "lead_status": lead_type,
                 "course_start_date": course_start_date,
-                "Organization": company_name
+                "Organization": company_name,
+                "Biller_email": biller_email
             }
             put_request = requests.put(f'https://a.klaviyo.com/api/v1/person/{data_info_id}', params=put_params)
             if put_request.status_code == 200:
@@ -211,7 +213,8 @@ class KlaviyoData(View):
                 "courseName": course_name,
                 "lead_status": lead_type,
                 "course_start_date": course_start_date,
-                "Organization": company_name
+                "Organization": company_name,
+                "Biller_email": biller_email
             }
         }
 
